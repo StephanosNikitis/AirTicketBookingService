@@ -34,6 +34,18 @@ class BookingService {
             throw new ServiceError()
         }
     }
+
+    async updateBooking(bookingId, data) {
+        try {
+            const response = await this.bookingRepository.update(bookingId, data)
+            return response
+        } catch (error) {
+            if(error.name == 'RepositoryError' ||error.name == 'ValidationError') {
+                throw error
+            }
+            throw new ServiceError()
+        }
+    }
 }
 
 module.exports = BookingService
